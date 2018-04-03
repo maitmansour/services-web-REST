@@ -4,4 +4,4 @@ export CLASSPATH=$CLASSPATH:/usr/local/stow/glassfish4/glassfish/modules/jersey-
 export CLASSPATH=$CLASSPATH:/usr/local/stow/glassfish4/glassfish/modules/jersey-guava.jar
 
 
-javac -d WEB-INF/classes sender/*.java
+#javac -d WEB-INF/classes sender/*.java
