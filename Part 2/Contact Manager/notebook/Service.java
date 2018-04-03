@@ -7,7 +7,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.DefaultValue;
-
+import java.net.*;
+import java.lang.StringBuffer.*;
+import javax.ws.rs.core.*;
+import javax.servlet.http.*;
 @Path("/carnet")
 public class Service {
 			static Book currentBook = new Book();
@@ -57,7 +60,7 @@ public class Service {
     
     @POST
 	@Path("/add")
-    public String addnewContact(@FormParam("name") String name,@FormParam("number") String number) {
+    public String addnewContact(@FormParam("name") String name,@FormParam("number") String number,HttpServletRequest request) {
 			
 			if(name==null || number==null){
 				return "Please add name and number !";
@@ -67,9 +70,15 @@ public class Service {
 									return "Contact Déja existant !";
 								}
 							}
-			currentBook.contacts.add(new Contact(name,number));
-			
-			return "Contact Ajouté  !";
+			UriBuilder builder = UriBuilder
+            .fromPath(request.getRequestURL().toString())
+            .scheme("http")
+            .path("carnet/getByName/")
+            .path(name);
+
+
+			// TODO : ADD RESPONSE
+			return "Contact Ajouté  URL : <a href="+builder+" > HERE </a> !";
 		
     }
 
