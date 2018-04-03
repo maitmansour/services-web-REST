@@ -15,7 +15,7 @@ public class Sender {
     
     @GET()
 	@Path("/xml")
-    @Produces("application/xml")
+    @Produces("text/xml")
     public String salut() {
         return "Hello";
     }
