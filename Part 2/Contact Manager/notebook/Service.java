@@ -10,7 +10,7 @@ import javax.ws.rs.DefaultValue;
 
 @Path("/carnet")
 public class Service {
-			Book currentBook = new Book();
+			static Book currentBook = new Book();
 
     @GET
     public String getAction() {
