@@ -8,10 +8,10 @@ import javax.ws.rs.DefaultValue;
 
 @Path("/carnet")
 public class Service {
+			Book currentBook = new Book();
 
     @GET
     public String getAction() {
-			Book currentBook = new Book();
 			String tmp="";
 			if(currentBook.contacts.isEmpty()){
 				tmp="Liste Vide !";
@@ -23,8 +23,29 @@ public class Service {
 			}
 			}
 			
-
+			return tmp;
 		
+    }
+    
+    
+    
+    @GET
+	@Path("/getByName/{name}")
+    public String getByNameAction(@PathParam("name") String name) {
+			String tmp="";
+			Boolean found=false;
+			if(currentBook.contacts.isEmpty()){
+				tmp="Liste Vide !";
+			}else{
+							for(Contact item : currentBook.contacts){
+								if(item.getName().equals(name)){
+									tmp+=name+" : "+item.getNumber();
+									found=true;
+								}
+			}
+			}
+			if(!found)tmp="Inconnu !";
+			
 			return tmp;
 		
     }
