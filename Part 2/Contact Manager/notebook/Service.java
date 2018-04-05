@@ -80,7 +80,31 @@ public class Service {
 		}
 			currentBook.contacts.add(new Contact(name,number));
             URI uri = UriBuilder.fromUri("http://localhost/notebook/rest").scheme("carnet").path("getByName").path(name).build();
-            return Response.status(201).entity("Added Succssfullt  ! URL : "+uri).build();
+            return Response.status(201).entity("Added Succssfully  ! URL : "+uri).build();
+
+
+
+        
+
+
+    }
+
+
+    @POST
+    @Path("/addxml")
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_XML)
+    public Response addnewContactXML(Contact contact) {
+
+        for (Contact item: currentBook.contacts) {
+            if (item.getName().equals(contact.getName())) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Already exist !").build();
+            }
+            
+		}
+			currentBook.contacts.add(contact);
+            URI uri = UriBuilder.fromUri("http://localhost/notebook/rest").scheme("carnet").path("getByName").path(contact.getName()).build();
+            return Response.status(201).entity("Added Succssfully  ! URL : "+uri).build();
 
 
 
