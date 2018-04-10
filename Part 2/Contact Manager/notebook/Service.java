@@ -43,7 +43,7 @@ public class Service {
 
     @GET
     @Path("/getByName/{name}")
-    public String getByNameAction(@PathParam("name") String name)  throws NotFoundException {
+    public String getByNameAction(@PathParam("name") String name)  throws ContactNotFoundException {
         String tmp = "";
         Boolean found = false;
         if (currentBook.contacts.isEmpty()) {
@@ -57,7 +57,7 @@ public class Service {
             }
         }
         if (!found){
-			        throw new NotFoundException();
+			 throw new ContactNotFoundException("Contact Not Found");
 			}
 
         return tmp;
