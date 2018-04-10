@@ -3,6 +3,7 @@ package notebook;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -125,20 +126,33 @@ public class Service {
 		if(currentBook.contacts.size()==0)return Response.status(204).entity("").build();
         for (Contact item: currentBook.contacts) {
             if (item.getName().equals(contact.getName())) {
-				System.out.println("ok");
 				item.setNumber(contact.getNumber());
 				currentBook.contacts.set(currentBook.contacts.indexOf(item),contact);
-                return Response.status(204).entity("OK").build();
+                return Response.status(204).entity("").build();
             }
             
 		}
 	
-	return Response.status(204).entity("NOT FOUND").build();
+	return Response.status(204).entity("").build();
 
+    }
+    
+    @DELETE
+    @Path("/delete/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes
+    public Response deleteAction(@PathParam("name") String name) {
 
-
-        
-
+		if(currentBook.contacts.size()==0)return Response.status(204).entity("").build();
+        for (Contact item: currentBook.contacts) {
+            if (item.getName().equals(name)) {
+				currentBook.contacts.remove(currentBook.contacts.indexOf(item));
+                return Response.status(204).entity("").build();
+            }
+            
+		}
+	
+	return Response.status(204).entity("").build();
 
     }
 }
