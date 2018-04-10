@@ -1,6 +1,7 @@
 package notebook;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -28,7 +29,7 @@ public class Service {
         } else {
             int i = 0;
             for (Contact item: currentBook.contacts) {
-                tmp += "Contact " + i + " :   " + item.getName() + "<br/>";
+                tmp += "Contact " + i + " :   " + item.getName() + " ---> "+item.getNumber()+"<br/>";
                 i++;
             }
         }
@@ -92,10 +93,9 @@ public class Service {
 
     @POST
     @Path("/addxml")
-    @Produces("text/plain")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes
     public Response addnewContactXML(Contact contact) {
-			System.out.println("ok--------------");
 
         for (Contact item: currentBook.contacts) {
             if (item.getName().equals(contact.getName())) {
@@ -104,11 +104,36 @@ public class Service {
             
 		}
 			currentBook.contacts.add(contact);
-			System.out.println("ok");
             URI uri = UriBuilder.fromUri("http://localhost/notebook/rest").scheme("carnet").path("getByName").path(contact.getName()).build();
 			System.out.println(uri);
 
             return Response.status(201).entity("Added Succssfully  ! URL : "+uri).build();
+
+
+
+        
+
+
+    }
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes
+    public Response putAction(Contact contact) {
+
+		if(currentBook.contacts.size()==0)return Response.status(204).entity("").build();
+        for (Contact item: currentBook.contacts) {
+            if (item.getName().equals(contact.getName())) {
+				System.out.println("ok");
+				item.setNumber(contact.getNumber());
+				currentBook.contacts.set(currentBook.contacts.indexOf(item),contact);
+                return Response.status(204).entity("OK").build();
+            }
+            
+		}
+	
+	return Response.status(204).entity("NOT FOUND").build();
 
 
 

@@ -1,11 +1,13 @@
 package notebook;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 
 
 @XmlRootElement
 public class Contact{
-	
+	@XmlElement
 	String name;
+	@XmlElement
 	String number;
 	
 	public Contact(String  _name,String _number){
