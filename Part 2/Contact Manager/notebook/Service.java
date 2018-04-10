@@ -103,7 +103,10 @@ public class Service {
             
 		}
 			currentBook.contacts.add(contact);
+			System.out.println("ok");
             URI uri = UriBuilder.fromUri("http://localhost/notebook/rest").scheme("carnet").path("getByName").path(contact.getName()).build();
+			System.out.println("ok");
+
             return Response.status(201).entity("Added Succssfully  ! URL : "+uri).build();
 
 
