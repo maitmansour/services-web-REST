@@ -12,7 +12,7 @@ public class MyClient {
 
 			ClientConfig conf = new ClientConfig();
 			Client client = ClientBuilder.newClient(conf);
-			WebTarget target = client.target("http://e-mc137-110:8080/notebook/rest");
+			WebTarget target = client.target("http://localhost:8080/notebook/rest");
 			
 			notebook.Contact contact = new notebook.Contact("aaa","6565656");
 			

@@ -92,9 +92,10 @@ public class Service {
 
     @POST
     @Path("/addxml")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces("text/plain")
     @Consumes(MediaType.APPLICATION_XML)
     public Response addnewContactXML(Contact contact) {
+			System.out.println("ok--------------");
 
         for (Contact item: currentBook.contacts) {
             if (item.getName().equals(contact.getName())) {
@@ -105,7 +106,7 @@ public class Service {
 			currentBook.contacts.add(contact);
 			System.out.println("ok");
             URI uri = UriBuilder.fromUri("http://localhost/notebook/rest").scheme("carnet").path("getByName").path(contact.getName()).build();
-			System.out.println("ok");
+			System.out.println(uri);
 
             return Response.status(201).entity("Added Succssfully  ! URL : "+uri).build();
 
