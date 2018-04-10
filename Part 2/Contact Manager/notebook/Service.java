@@ -167,12 +167,14 @@ public class Service {
         for (Contact item: currentBook.contacts) {
             if (item.getName().equals(name)) {
 				currentBook.contacts.remove(currentBook.contacts.indexOf(item));
-                return Response.status(204).entity("").build();
-            }
+        NewCookie cookie = new NewCookie(name, name);
+    return Response.ok("OK").cookie(cookie).build();
+                }
             
 		}
-        NewCookie cookie = new NewCookie("name", name);
-    return Response.status(200).cookie(cookie).entity("Contact Deleted " ).build();
+
+                    return Response.status(204).entity("").build();
+
 
     }
 }
