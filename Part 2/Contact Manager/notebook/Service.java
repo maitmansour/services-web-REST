@@ -157,4 +157,22 @@ public class Service {
 	return Response.status(204).entity("").build();
 
     }
+    
+        
+    @GET
+    @Path("/deleteCookie/{name}")
+    public Response deleteAndAddCookie(@PathParam("name") String name) {
+
+		if(currentBook.contacts.size()==0)return Response.status(204).entity("").build();
+        for (Contact item: currentBook.contacts) {
+            if (item.getName().equals(name)) {
+				currentBook.contacts.remove(currentBook.contacts.indexOf(item));
+                return Response.status(204).entity("").build();
+            }
+            
+		}
+        NewCookie cookie = new NewCookie("name", name);
+    return Response.status(200).cookie(cookie).entity("Contact Deleted " ).build();
+
+    }
 }
