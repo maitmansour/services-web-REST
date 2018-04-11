@@ -19,10 +19,17 @@ import javax.servlet.http.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.util.Map;
+import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 @Path("/carnet")
 public class Service {
     static Book currentBook = new Book();
+
+@Context
+HttpHeaders requestHeaders;
 
     @GET
     public String getAction() {
@@ -112,6 +119,22 @@ public class Service {
         URI uri = UriBuilder.fromUri("http://localhost/notebook/rest").scheme("carnet").path("getByName").path(contact.getName()).build();
         System.out.println(uri);
 
+		try {
+
+		File file = new File(contact.getName()+".xml");
+		JAXBContext jaxbContext = JAXBContext.newInstance( notebook.Contact.class);
+		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+		// output pretty printed
+		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		jaxbMarshaller.marshal(contact, file);
+		jaxbMarshaller.marshal(contact, System.out);
+
+	      } catch (JAXBException e) {
+		e.printStackTrace();
+	      }
+
         return Response.status(201).entity("Added Succssfully  ! URL : " + uri).build();
 
 
@@ -182,7 +205,14 @@ public class Service {
     
     @GET
     @Path("/lastDeleted")
-    public Response getLastDeleted( @Context HttpHeaders headers) {
+    public Response getLastDeleted( @CookieParam("name")String name) {
+        return Response.status(200).entity("OK :"+name).build();
+
+    }
+    
+    @GET
+    @Path("/listCookies")
+    public Response getListCookie( @Context HttpHeaders headers) {
 		String tmp="";
 		for (String name : headers.getCookies().keySet())
       {
@@ -192,5 +222,6 @@ public class Service {
       }
         return Response.status(200).entity("OK :"+tmp).build();
 
-    }
+    }  
+      
 }

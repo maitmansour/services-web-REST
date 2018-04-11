@@ -14,7 +14,7 @@ public class MyClient {
 			Client client = ClientBuilder.newClient(conf);
 			WebTarget target = client.target("http://localhost:8080/notebook/rest");
 			
-			notebook.Contact contact = new notebook.Contact("Mido","11111111111");
+			notebook.Contact contact = new notebook.Contact("aaa","11111111111");
 			
 			Response response = target.path("carnet")
 			.path("update")
