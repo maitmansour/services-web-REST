@@ -1,19 +1,24 @@
 # REST Examples
 
-# Server
-Glassfish
+## Server
+**Glassfish**
 
-# Language
-java
-
-
-# Start domains
-start-domain --domaindir /home/etudiants/inf/uapv1802814/domains
+## Language
+**java**
 
 
-# compilation
-javac -d WEB-INF/classes notebook/*.java
+## Start domains
 
-jar cvf notebook.war WEB-INF/* *.html
+    start-domain --domaindir /home/etudiants/inf/XXXXX/domains
 
-asadmin deploy --force notebook.war 
+
+## Compilation
+
+    javac -d WEB-INF/classes notebook/*.java
+
+    jar cvf notebook.war WEB-INF/* *.html
+
+    asadmin deploy --force notebook.war 
+
+## Language
+**java**
